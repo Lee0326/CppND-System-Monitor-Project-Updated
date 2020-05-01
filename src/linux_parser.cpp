@@ -3,9 +3,9 @@
 #include <dirent.h>
 #include <unistd.h>
 
+#include <iostream>
 #include <string>
 #include <vector>
-
 using std::stof;
 using std::string;
 using std::to_string;
@@ -69,7 +69,28 @@ vector<int> LinuxParser::Pids() {
 }
 
 // TODO: Read and return the system memory utilization
-float LinuxParser::MemoryUtilization() { return 0.0; }
+float LinuxParser::MemoryUtilization() {
+  string line;
+  string key;
+  int memcnt;
+  int total, free;
+  std::ifstream filestream(kProcDirectory + kMeminfoFilename);
+  if (filestream.is_open()) {
+    while (std::getline(filestream, line)) {
+      std::replace(line.begin(), line.end(), ':', ' ');
+      std::istringstream linestream(line);
+      while (linestream >> key >> memcnt) {
+        if (key == "MemTotal") {
+          total = memcnt;
+        } else if (key == "MemFree") {
+          free = memcnt;
+          return ((float)(total - free) / total);
+        }
+      }
+    }
+  }
+  // return (float)((total - free) / total);
+}
 
 // TODO: Read and return the system uptime
 long LinuxParser::UpTime() {
