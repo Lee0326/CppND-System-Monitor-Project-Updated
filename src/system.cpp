@@ -19,13 +19,20 @@ using std::vector;
 // TODO: Return the system's CPU
 Processor& System::Cpu() { return cpu_; }
 
+bool largerCpu(Process& ps1, Process& ps2) {
+  return ps1.CpuUtilization() > ps2.CpuUtilization();
+}
 // TODO: Return a container composed of the system's processes
 vector<Process>& System::Processes() {
+  processes_ = {};
   vector<int> ids = LinuxParser::Pids();
   for (int id : ids) {
     Process ps(id);
-    processes_.emplace_back(ps);
+    processes_.push_back(ps);
   }
+  std::sort(processes_.begin(), processes_.end(), largerCpu);
+  // std::cout << processes_[0].CpuUtilization() << std::endl;
+
   return processes_;
 }
 

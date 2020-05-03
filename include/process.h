@@ -4,6 +4,8 @@
 #include <fstream>
 #include <iostream>
 #include <string>
+
+#include "linux_parser.h"
 /*
 Basic class for Process representation
 It contains relevant attributes as shown below
@@ -21,7 +23,15 @@ class Process {
   // TODO: Declare any necessary private members
  private:
   int id_;
-  std::string address_;
+  std::string address_cmd;
+  std::string address_cpu;
+  int hertz_ = 100;
+  int utime = 0;
+  int stime = 0;
+  int cutime = 0;
+  int cstime = 0;
+  int starttime = 0;
+  float cpu_usage = 0.0;
 };
 
 #endif
