@@ -21,7 +21,6 @@ int Process::Pid() { return id_; }
 // TODO: Return this process's CPU utilization
 float Process::CpuUtilization() {
   string line;
-  int hertz_ = 100;
   string time;
   std::ifstream stream(address_cpu);
   if (stream.is_open()) {

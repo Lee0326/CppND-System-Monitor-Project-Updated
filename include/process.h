@@ -1,6 +1,8 @@
 #ifndef PROCESS_H
 #define PROCESS_H
 
+#include <unistd.h>
+
 #include <fstream>
 #include <iostream>
 #include <string>
@@ -25,7 +27,7 @@ class Process {
   int id_;
   std::string address_cmd;
   std::string address_cpu;
-  int hertz_ = 100;
+  int hertz_ = sysconf(_SC_CLK_TCK);
   int utime = 0;
   int stime = 0;
   int cutime = 0;
