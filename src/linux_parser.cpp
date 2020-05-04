@@ -89,7 +89,7 @@ float LinuxParser::MemoryUtilization() {
       }
     }
   }
-  // return (float)((total - free) / total);
+  return 0;
 }
 
 // TODO: Read and return the system uptime
@@ -183,6 +183,7 @@ string LinuxParser::Ram(int pid [[maybe_unused]]) {
       }
     }
   }
+return string();
 }
 
 // TODO: Read and return the user ID associated with a process
